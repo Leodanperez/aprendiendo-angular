@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { SecondComponent } from './pages/second/second.component';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +12,19 @@ export class FormulariosService {
 
   public form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  api: string = "http://localhost:3000"
+
+  constructor(private fb: FormBuilder, private http: HttpClient, private md: NgbModal) {
     this.form = this.createForm();
   }
 
   public createForm() {
     return this.fb.group({
-      nombre: ['', [Validators.required]],
-      apellidos: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      productName: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      comment: [''],
+      date: [''],
     })
   }
 
@@ -24,7 +32,23 @@ export class FormulariosService {
     return this.form;
   }
 
-  public get fieldNombre() {
+  public openModalAddProduct(): Observable<boolean> {
+    const modalRef = this.md.open(SecondComponent);
+    return modalRef.componentInstance.respuesta as Observable<boolean>;
+  }
+
+  addProduct(data: any) {
+    return this.http.post(`${this.api}/productList`, data);
+  }
+
+  getProduct() {
+    return this.http.get(`${this.api}/productList`);
+  }
+
+  deleteProduct(id: number) {
+    return this.http.delete(`${this.api}/productList/${id}`);
+  }
+  /* public get fieldNombre() {
     return this.form.get('nombre');
   }
 
@@ -46,5 +70,5 @@ export class FormulariosService {
 
   public getEmail() {
     return this.fieldEmail?.invalid && this.fieldEmail.touched;
-  }
+  } */
 }

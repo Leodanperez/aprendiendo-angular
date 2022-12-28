@@ -1,14 +1,46 @@
 <div class="container">
   <div class="row pt-4">
     <div class="card shadow p-3 mb-5 bg-white rounded">
-      <form [formGroup]="formService.form">
-        <div class="card-body">
-          <input type="text" class="form-control shadow-none" formControlName="nombre" placeholder="Nombre"><br>
-          <input type="text" class="form-control shadow-none" formControlName="apellidos" placeholder="Apellidos"><br>
-          <input type="text" class="form-control shadow-none" formControlName="email" placeholder="Email">
-        </div>
-        <button class="btn btn-primary" type="button" [disabled]="!formService.form.valid" (click)="guardarInfor()">My Button</button>
-      </form>
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="button" (click)="openModalAddProduct()">Add</button>
+        </span>
+      </div>
+      <div class="card-body">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Product Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Date</th>
+              <th scope="col">Price</th>
+              <th scope="col">Comment</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prod of products">
+              <th scope="row">{{prod.id}}</th>
+              <td>{{prod.productName}}</td>
+              <td>{{prod.category}}</td>
+              <td>{{prod.date}}</td>
+              <td>{{prod.price}}</td>
+              <td>{{prod.comment}}</td>
+              <td>
+                <button class="btn btn-sm btn-primary">Edit</button>
+                <button class="btn btn-sm btn-danger" (click)="deleteProduct(prod.id)">Delete</button>
+              </td>
+            </tr>
+
+            <ng-container *ngIf="!(products.length > 0)">
+              <tr>
+                <td colspan="7" style='text-align: center'>Ningún registro encontrado</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

@@ -1,1 +1,40 @@
-<h1>Soy el segundo componente</h1>
+<div class="modal-header">
+  <p class="modal-title" id="modal-basic-title"><strong>Agregar Producto</strong></p>
+  <button type="button" class="btn-close btn-close-dark shadow-none" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  <div class="col-12 px-2 pb-4">
+    <form [formGroup]="formService.form">
+
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Product Name</label>
+        <input type="text" class="form-control shadow-none" formControlName="productName">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Category</label>
+        <select class="form-control shadow-none" id="exampleFormControlSelect1" formControlName="category">
+          <option value="Bebidas">Bebidas</option>
+          <option value="Frutas">Frutas</option>
+          <option value="Vegetales">Vegetales</option>
+          <option value="Electronicos">Electronicos</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect2">Date</label>
+        <input type="date" class="form-control shadow-none" formControlName="date">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Price</label>
+        <input type="number" class="form-control shadow-none" formControlName="price">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Comment</label>
+        <textarea class="form-control shadow-none" id="exampleFormControlTextarea1" rows="3" formControlName="comment"></textarea>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary shadow-none" (click)="addProduct()">Guardar</button>
+  <button type="button" class="btn btn-danger shadow-none" (click)="cancel()">Cancelar</button>
+</div>
